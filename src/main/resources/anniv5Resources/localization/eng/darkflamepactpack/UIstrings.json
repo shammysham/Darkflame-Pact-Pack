@@ -1,0 +1,15 @@
+{
+  "${ModID}:DarkflamePactPack": {
+    "TEXT": [
+      "Darkflame Pact",
+      "A demonic pact grants Ethereal power. Offer your memories to turn your enemies to ash with its flame.",
+      "Shammy"
+    ]
+  },
+  "${ModID}:DarkflamePactPackHat": {
+    "TEXT": [
+      "haaaaaaaaaat",
+      "Darkflame Mark"
+    ]
+  }
+}

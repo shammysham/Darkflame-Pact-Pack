@@ -1,0 +1,42 @@
+{
+  "${ModID}:Demonspark": {
+    "NAME": "Demonspark",
+    "DESCRIPTION": "Exhaust up to !M! cards. NL Deal !D! damage. NL Apply !${ModID}:m2! ${ModID}:Ignite for each Exhausted card."
+  },
+  "${ModID}:LostElegy": {
+    "NAME": "Lost Elegy",
+    "DESCRIPTION": "{@@}${ModID}:Quietus. NL Deal !D! damage. NL Add !M! random status{!M!|1=|@=es} from your draw pile to your hand."
+  },
+  "${ModID}:FromAsh": {
+    "NAME": "From Ash",
+    "DESCRIPTION": "{@@}Gain !B! Block. NL Discard !M! card{!M!|1=|@=s}{!Upgrades!|0= at random}. NL Draw !${ModID}:m2! card{!${ModID}:m2!|>1=s}."
+  },
+  "${ModID}:SearingDelusion": {
+    "NAME": "Searing Delusion",
+    "DESCRIPTION": "Ethereal. NL Deal !D! damage. NL Apply !M! Weak. NL Shuffle a copy of this into your draw pile."
+  },
+  "${ModID}:TheCalmBefore": {
+    "NAME": "The Calm Before",
+    "DESCRIPTION": "{@@}Unplayable. ${ModID}:Quietus.{!Upgrades!|>0= Retain.} NL Whenever a card is discarded or Exhausted, apply !M! Ignite to ALL enemies."
+  },
+  "${ModID}:DarkflameBarrier": {
+    "NAME": "Darkflame Barrier",
+    "DESCRIPTION": "Gain !B! Block. NL Add !M! Burn{!M!|1=|@=s} to your hand. Apply !${ModID}:m2! ${ModID}:Ignite to ALL enemies for each status in your hand."
+  },
+  "${ModID}:DarkRecollection": {
+    "NAME": "Dark Recollection",
+    "DESCRIPTION": "{@@}Ethereal. NL Shuffle !${ModID}:m2! Dazed into your draw pile. NL Draw !M! card{!M!|1=|@=s}."
+  },
+  "${ModID}:AnamnesisFlare": {
+    "NAME": "Anamnesis Flare",
+    "DESCRIPTION": "${ModID}:Quietus. Ethereal. NL Deal !D! damage to ALL enemies. NL Shuffle this and !M! Dazed into your draw pile."
+  },
+  "${ModID}:FormlessMemory": {
+    "NAME": "Formless Memory",
+    "DESCRIPTION": "{@@}{!Upgrades!|>0= Innate. NL }Add !M! Void to your discard pile. Gain %s at the start of your turn."
+  },
+  "${ModID}:Requiescat": {
+    "NAME": "Requiescat",
+    "DESCRIPTION": "${ModID}:Quietus. !M! Strength. Gain !${ModID}:m2! Dexterity. Shuffle !${ModID}:m2! Dazed into your draw pile."
+  }
+}
