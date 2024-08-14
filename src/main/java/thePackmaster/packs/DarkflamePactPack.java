@@ -17,9 +17,9 @@ public class DarkflamePactPack extends AbstractCardPack {
 
   public static final int OFFENSE = 2;
   public static final int DEFENSE = 2;
-  public static final int SUPPORT = 2;
-  public static final int FRONTLOAD = 2;
-  public static final int SCALING = 2;
+  public static final int SUPPORT = 3;
+  public static final int FRONTLOAD = 4;
+  public static final int SCALING = 3;
 
   public DarkflamePactPack() {
     super(ID, NAME, DESC, AUTHOR,
