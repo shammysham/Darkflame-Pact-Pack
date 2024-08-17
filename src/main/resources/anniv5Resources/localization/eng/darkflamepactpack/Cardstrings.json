@@ -1,15 +1,19 @@
 {
   "${ModID}:Demonspark": {
     "NAME": "Demonspark",
-    "DESCRIPTION": "Exhaust up to !M! cards. NL Deal !D! damage. NL Apply !${ModID}:m2! ${ModID}:Ignite for each Exhausted card."
+    "DESCRIPTION": "{@@}Exhaust up to !M! card{!M!|1=|@=s}. NL Deal !D! damage. NL Apply !${ModID}:m2! ${ModID}:Ignite for each Exhausted card. NL Exhaust.",
+    "EXTENDED_DESCRIPTION": [
+      "Exhaust up to %s card.",
+      "Exhaust up to %s cards."
+    ]
   },
   "${ModID}:LostElegy": {
     "NAME": "Lost Elegy",
-    "DESCRIPTION": "{@@}${ModID}:Quietus. NL Deal !D! damage. NL Add !M! random status{!M!|1=|@=es} from your draw pile to your hand."
+    "DESCRIPTION": "{@@}${ModID}:Quietus. NL Deal !D! damage. NL Add !M! random Status{!M!|1=|@=es} from your draw pile to your hand."
   },
   "${ModID}:FromAsh": {
     "NAME": "From Ash",
-    "DESCRIPTION": "{@@}Gain !B! Block. NL Discard !M! card{!M!|1=|@=s}{!Upgrades!|0= at random}. NL Draw !${ModID}:m2! card{!${ModID}:m2!|>1=s}."
+    "DESCRIPTION": "{@@}Gain !B! Block. NL Discard !${ModID}:m2! card{!${ModID}:m2!|1=|@=s}{!Upgrades!|0= at random}. NL Draw !M! card{!M!|>1=s}."
   },
   "${ModID}:SearingDelusion": {
     "NAME": "Searing Delusion",
@@ -17,11 +21,11 @@
   },
   "${ModID}:TheCalmBefore": {
     "NAME": "The Calm Before",
-    "DESCRIPTION": "{@@}Unplayable. ${ModID}:Quietus.{!Upgrades!|>0= Retain.} NL Whenever a card is discarded or Exhausted, apply !M! Ignite to ALL enemies."
+    "DESCRIPTION": "{@@}Unplayable. ${ModID}:Quietus.{!Upgrades!|>0= Retain.} NL Whenever a card is discarded or Exhausted, apply !M! ${ModID}:Ignite to ALL enemies."
   },
   "${ModID}:DarkflameBarrier": {
     "NAME": "Darkflame Barrier",
-    "DESCRIPTION": "Gain !B! Block. NL Add !M! Burn{!M!|1=|@=s} to your hand. Apply !${ModID}:m2! ${ModID}:Ignite to ALL enemies for each status in your hand."
+    "DESCRIPTION": "{@@}Gain !B! Block. NL Add !${ModID}:m2! Burn{!${ModID}:m2!|1=|@=s} to your hand. NL Apply !M! ${ModID}:Ignite to ALL enemies for each Status in your hand."
   },
   "${ModID}:DarkRecollection": {
     "NAME": "Dark Recollection",
@@ -33,10 +37,10 @@
   },
   "${ModID}:FormlessMemory": {
     "NAME": "Formless Memory",
-    "DESCRIPTION": "{@@}{!Upgrades!|>0= Innate. NL }Add !M! Void to your discard pile. Gain %s at the start of your turn."
+    "DESCRIPTION": "{@@}{!Upgrades!|>0= Innate. NL }Add !${ModID}:m2! Void to your discard pile. NL Gain {!M!|1=[E]|2=[E] [E]|3=[E] [E] [E]|@=!M! [E]} at the start of your turn."
   },
   "${ModID}:Requiescat": {
     "NAME": "Requiescat",
-    "DESCRIPTION": "${ModID}:Quietus. !M! Strength. Gain !${ModID}:m2! Dexterity. Shuffle !${ModID}:m2! Dazed into your draw pile."
+    "DESCRIPTION": "${ModID}:Quietus. NL Gain !M! Strength. NL Gain !${ModID}:m2! Dexterity. NL Shuffle !${ModID}:m2! Dazed into your draw pile."
   }
 }

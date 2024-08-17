@@ -3,8 +3,13 @@ package thePackmaster.packs;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import thePackmaster.SpireAnniversary5Mod;
+import thePackmaster.cardmodifiers.darkflamepactpack.QuietusModifier;
+import thePackmaster.cards.darkflamepactpack.*;
+import thePackmaster.powers.darkflamepactpack.TheCalmBeforePower;
+import thePackmaster.util.Wiz;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,6 +35,14 @@ public class DarkflamePactPack extends AbstractCardPack {
 
   @Override
   public ArrayList<String> getCards() {
-    return Stream.of("").collect(Collectors.toCollection(ArrayList::new));
+    return Stream.of(AnamnesisFlare.ID, DarkflameBarrier.ID, DarkRecollection.ID, Demonspark.ID, FormlessMemory.ID,
+        FromAsh.ID, LostElegy.ID, SearingDelusion.ID, Requiescat.ID, TheCalmBefore.ID
+    ).collect(Collectors.toCollection(ArrayList::new));
+  }
+
+  public static void triggerOnDiscardOrExhaust() {
+    QuietusModifier.process();
+    Optional.ofNullable(Wiz.adp().getPower(TheCalmBeforePower.POWER_ID))
+        .ifPresent(p -> p.onExhaust(null));
   }
 }

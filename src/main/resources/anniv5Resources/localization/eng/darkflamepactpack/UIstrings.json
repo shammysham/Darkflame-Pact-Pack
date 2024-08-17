@@ -11,5 +11,10 @@
       "haaaaaaaaaat",
       "Darkflame Mark"
     ]
+  },
+  "${ModID}:QuietusModifier": {
+    "TEXT": [
+      "${ModID}:Quietus. NL "
+    ]
   }
 }

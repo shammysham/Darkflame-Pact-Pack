@@ -12,6 +12,7 @@ import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
 import com.megacrit.cardcrawl.stances.AbstractStance;
 import com.megacrit.cardcrawl.stances.CalmStance;
 import com.megacrit.cardcrawl.vfx.cardManip.PurgeCardEffect;
+import thePackmaster.cardmodifiers.darkflamepactpack.QuietusModifier;
 import thePackmaster.cards.pickthemallpack.GrabAndGo;
 import thePackmaster.cards.showmanpack.AbstractShowmanCard;
 import thePackmaster.hats.HatMenu;
@@ -154,5 +155,6 @@ public class ExpansionPacks implements
     @Override
     public void receivePostExhaust(AbstractCard exhaustedCard) {
         AbstractShowmanCard.postExhaustTrigger(exhaustedCard);
+        QuietusModifier.process();
     }
 }
