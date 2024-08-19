@@ -2,10 +2,10 @@ package thePackmaster.cardmodifiers.darkflamepactpack;
 
 import basemod.abstracts.AbstractCardModifier;
 import basemod.helpers.CardModifierManager;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.utility.NewQueueCardAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
@@ -17,12 +17,14 @@ import thePackmaster.SpireAnniversary5Mod;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class QuietusModifier extends AbstractCardModifier {
   public static String ID = SpireAnniversary5Mod.makeID("QuietusModifier");
   private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(ID);
   private final boolean isInherent;
   private boolean isBeingPlayedByQuietusTrigger = false;
+  public static final CardGroup group = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
 
   private QuietusModifier(boolean isInherent) {
     this.isInherent = isInherent;
@@ -77,7 +79,9 @@ public class QuietusModifier extends AbstractCardModifier {
 
   public static void process() {
     List<AbstractCard> toRemove = new ArrayList<>();
-    AbstractDungeon.player.hand.group.stream()
+    // we iterate limbo too, since retain cards get moved there
+    Stream.of(AbstractDungeon.player.hand, AbstractDungeon.player.limbo)
+        .flatMap(c -> c.group.stream())
         .filter(c -> {
           Optional<QuietusModifier> q = getFrom(c);
           return q.isPresent() && !q.get().isBeingPlayedByQuietusTrigger;
@@ -87,25 +91,9 @@ public class QuietusModifier extends AbstractCardModifier {
           toRemove.add(c);
         });
 
-    AbstractDungeon.player.limbo.group.addAll(toRemove);
+    AbstractDungeon.player.limbo.group.removeAll(toRemove);
     AbstractDungeon.player.hand.group.removeAll(toRemove);
-
-    AbstractDungeon.player.limbo.group.stream()
-        .filter(c -> {
-          Optional<QuietusModifier> q = getFrom(c);
-          return q.isPresent() && (c.retain || c.selfRetain);
-        })
-        .forEach(c -> {
-          AbstractDungeon.actionManager.addToBottom(new AbstractGameAction() {
-            @Override
-            public void update() {
-              this.isDone = true;
-              AbstractDungeon.player.limbo.group.add(c);
-              AbstractDungeon.player.hand.group.remove(c);
-            }
-          });
-          processSingleCard(c);
-        });
+    group.group.addAll(toRemove);
   }
 
   private static void processSingleCard(AbstractCard c) {

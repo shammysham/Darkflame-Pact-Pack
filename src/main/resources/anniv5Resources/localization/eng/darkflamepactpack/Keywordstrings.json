@@ -4,6 +4,6 @@
     "NAMES": [
       "quietus"
     ],
-    "DESCRIPTION": "When another card is discarded or #yExhausted, activate this card's effects and discard it. Any enemy targets are chosen randomly."
+    "DESCRIPTION": "When another card is discarded or #yExhausted, play this. Any enemy targets are chosen randomly."
   }
 ]

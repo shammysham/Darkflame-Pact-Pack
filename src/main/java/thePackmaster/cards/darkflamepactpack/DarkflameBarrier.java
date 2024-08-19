@@ -25,6 +25,6 @@ public class DarkflameBarrier extends AbstractDarkflamePactCard {
   public void use(AbstractPlayer abstractPlayer, AbstractMonster abstractMonster) {
     Wiz.doBlk(this.block);
     Wiz.makeInHand(new Burn(), this.secondMagic);
-    Wiz.forAllMonstersLiving(monster -> Wiz.applyToEnemy(monster, new IgnitePower(monster, (int) Wiz.hand().group.stream().filter(c -> c.type == CardType.STATUS).count())));
+    Wiz.forAllMonstersLiving(monster -> Wiz.applyToEnemy(monster, new IgnitePower(monster, (int) Wiz.hand().group.stream().filter(c -> c.type == CardType.STATUS).count() + 1)));
   }
 }

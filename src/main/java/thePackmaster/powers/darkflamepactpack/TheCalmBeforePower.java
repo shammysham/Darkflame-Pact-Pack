@@ -21,4 +21,9 @@ public class TheCalmBeforePower extends AbstractPackmasterPower {
   public void onExhaust(AbstractCard card) {
     Wiz.forAllMonstersLiving(monster -> Wiz.applyToEnemy(monster, new IgnitePower(monster, this.amount)));
   }
+
+  @Override
+  public void updateDescription() {
+    description = DESCRIPTIONS[0] + this.amount + DESCRIPTIONS[1];
+  }
 }
