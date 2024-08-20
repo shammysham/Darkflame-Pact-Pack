@@ -12,7 +12,7 @@ public class DarkflameBarrier extends AbstractDarkflamePactCard {
   public DarkflameBarrier() {
     super(ID, 2, CardType.SKILL, CardRarity.UNCOMMON, CardTarget.SELF);
     this.block = this.baseBlock = 13;
-    this.magicNumber = this.baseMagicNumber = 1;
+    this.magicNumber = this.baseMagicNumber = 2;
     this.secondMagic = this.baseSecondMagic = 1;
   }
 
@@ -25,6 +25,6 @@ public class DarkflameBarrier extends AbstractDarkflamePactCard {
   public void use(AbstractPlayer abstractPlayer, AbstractMonster abstractMonster) {
     Wiz.doBlk(this.block);
     Wiz.makeInHand(new Burn(), this.secondMagic);
-    Wiz.forAllMonstersLiving(monster -> Wiz.applyToEnemy(monster, new IgnitePower(monster, (int) Wiz.hand().group.stream().filter(c -> c.type == CardType.STATUS).count() + 1)));
+    Wiz.forAllMonstersLiving(monster -> Wiz.applyToEnemy(monster, new IgnitePower(monster, this.magicNumber * ((int) Wiz.hand().group.stream().filter(c -> c.type == CardType.STATUS).count() + 1))));
   }
 }

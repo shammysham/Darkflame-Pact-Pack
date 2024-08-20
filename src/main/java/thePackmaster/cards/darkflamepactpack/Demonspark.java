@@ -30,7 +30,11 @@ public class Demonspark extends AbstractDarkflamePactCard {
     this.addToBot(new HandSelectAction(
         this.magicNumber, card -> true,
         cards -> cards.forEach(card -> addToTop(new ExhaustSpecificCardAction(card, AbstractDungeon.player.hand, true))),
-        cards -> Wiz.applyToEnemyTop(abstractMonster, new IgnitePower(abstractMonster, secondMagic * cards.size())),
+        cards -> {
+          if(!cards.isEmpty()) {
+            Wiz.applyToEnemyTop(abstractMonster, new IgnitePower(abstractMonster, secondMagic * cards.size()));
+          }
+        },
         String.format(cardStrings.EXTENDED_DESCRIPTION[cardStrings.EXTENDED_DESCRIPTION.length > 1 && (this.magicNumber != 1) ? 1 : 0], this.magicNumber),
         true, true, true
     ));
