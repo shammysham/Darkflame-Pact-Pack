@@ -4,7 +4,6 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import thePackmaster.SpireAnniversary5Mod;
 import thePackmaster.cardmodifiers.darkflamepactpack.QuietusModifier;
-import thePackmaster.patches.darkflamepactpack.DarkflamePactPatches;
 import thePackmaster.powers.darkflamepactpack.TheCalmBeforePower;
 import thePackmaster.util.Wiz;
 
@@ -14,7 +13,6 @@ public class TheCalmBefore extends AbstractDarkflamePactCard implements QuietusM
     super(ID, -2, CardType.POWER, CardRarity.UNCOMMON, CardTarget.SELF);
     this.magicNumber = this.baseMagicNumber = 1;
     QuietusModifier.addTo(this, true);
-    DarkflamePactPatches.Fields.allowAutoplayWhenUnplayable.set(this, true);
   }
 
   @Override

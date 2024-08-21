@@ -13,6 +13,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.random.Random;
 import thePackmaster.SpireAnniversary5Mod;
+import thePackmaster.patches.darkflamepactpack.DarkflamePactPatches;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,8 @@ public class QuietusModifier extends AbstractCardModifier {
   private final boolean isInherent;
   private boolean isBeingPlayedByQuietusTrigger = false;
   public static final CardGroup group = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
+  private boolean originalAllowAutoplayWhenUnplayable = false;
+  private boolean originalEthereateLast = false;
 
   private QuietusModifier(boolean isInherent) {
     this.isInherent = isInherent;
@@ -64,6 +67,20 @@ public class QuietusModifier extends AbstractCardModifier {
     this.isBeingPlayedByQuietusTrigger = false;
   }
 
+  @Override
+  public void onInitialApplication(AbstractCard card) {
+    originalAllowAutoplayWhenUnplayable = DarkflamePactPatches.Fields.allowAutoplayWhenUnplayable.get(card);
+    originalEthereateLast = DarkflamePactPatches.Fields.ethereateLast.get(card);
+    DarkflamePactPatches.Fields.allowAutoplayWhenUnplayable.set(card, true);
+    DarkflamePactPatches.Fields.ethereateLast.set(card, true);
+  }
+
+  @Override
+  public void onRemove(AbstractCard card) {
+    DarkflamePactPatches.Fields.allowAutoplayWhenUnplayable.set(card, originalAllowAutoplayWhenUnplayable);
+    DarkflamePactPatches.Fields.ethereateLast.set(card, originalEthereateLast);
+  }
+
   public boolean isBeingPlayedByQuietusTrigger() {
     return isBeingPlayedByQuietusTrigger;
   }
@@ -77,19 +94,23 @@ public class QuietusModifier extends AbstractCardModifier {
     );
   }
 
-  public static void process() {
+  public static void process(AbstractCard card) {
     List<AbstractCard> toRemove = new ArrayList<>();
     // we iterate limbo too, since retain cards get moved there
-    Stream.of(AbstractDungeon.player.hand, AbstractDungeon.player.limbo)
-        .flatMap(c -> c.group.stream())
-        .filter(c -> {
-          Optional<QuietusModifier> q = getFrom(c);
-          return q.isPresent() && !q.get().isBeingPlayedByQuietusTrigger;
-        })
-        .forEach(c -> {
-          processSingleCard(c);
-          toRemove.add(c);
-        });
+    Stream.of(
+        AbstractDungeon.player.hand.group.stream(),
+        AbstractDungeon.player.limbo.group.stream()
+    )
+    .flatMap(s -> s)
+    .filter(c -> !c.equals(card)) // can't self-trigger, matching exact instance
+    .filter(c -> {
+      Optional<QuietusModifier> q = getFrom(c);
+      return q.isPresent() && !q.get().isBeingPlayedByQuietusTrigger;
+    })
+    .forEach(c -> {
+      processSingleCard(c);
+      toRemove.add(c);
+    });
 
     AbstractDungeon.player.limbo.group.removeAll(toRemove);
     AbstractDungeon.player.hand.group.removeAll(toRemove);

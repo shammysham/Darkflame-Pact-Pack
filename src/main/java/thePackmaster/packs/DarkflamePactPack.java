@@ -41,7 +41,7 @@ public class DarkflamePactPack extends AbstractCardPack {
   }
 
   public static void triggerOnDiscardOrExhaust() {
-    QuietusModifier.process();
+    QuietusModifier.process(null);
     Optional.ofNullable(Wiz.adp().getPower(TheCalmBeforePower.POWER_ID))
         .ifPresent(p -> p.onExhaust(null));
   }

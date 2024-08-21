@@ -155,6 +155,6 @@ public class ExpansionPacks implements
     @Override
     public void receivePostExhaust(AbstractCard exhaustedCard) {
         AbstractShowmanCard.postExhaustTrigger(exhaustedCard);
-        QuietusModifier.process();
+        QuietusModifier.process(exhaustedCard);
     }
 }

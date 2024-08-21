@@ -23,7 +23,7 @@ public class DarkRecollection extends AbstractDarkflamePactCard {
 
   @Override
   public void use(AbstractPlayer abstractPlayer, AbstractMonster abstractMonster) {
-    Wiz.shuffleIn(new Dazed(), 2);
-    addToBot(new DrawCardAction(2));
+    Wiz.shuffleIn(new Dazed(), secondMagic);
+    addToBot(new DrawCardAction(magicNumber));
   }
 }

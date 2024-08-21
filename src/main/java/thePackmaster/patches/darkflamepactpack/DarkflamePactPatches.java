@@ -3,6 +3,7 @@ package thePackmaster.patches.darkflamepactpack;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.megacrit.cardcrawl.actions.GameActionManager;
+import com.megacrit.cardcrawl.actions.common.DiscardAtEndOfTurnAction;
 import com.megacrit.cardcrawl.actions.common.EndTurnAction;
 import com.megacrit.cardcrawl.actions.common.MonsterStartTurnAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
@@ -20,7 +21,7 @@ import javassist.expr.FieldAccess;
 import thePackmaster.cardmodifiers.darkflamepactpack.QuietusModifier;
 import thePackmaster.packs.DarkflamePactPack;
 
-import java.util.Optional;
+import java.util.*;
 
 @SuppressWarnings("unused")
 public class DarkflamePactPatches {
@@ -31,6 +32,7 @@ public class DarkflamePactPatches {
   )
   public static class Fields {
     public static SpireField<Boolean> allowAutoplayWhenUnplayable = new SpireField<>(() -> false);
+    public static SpireField<Boolean> ethereateLast = new SpireField<>(() -> false);
   }
 
   @SpirePatch(
@@ -172,6 +174,28 @@ public class DarkflamePactPatches {
         return SpireReturn.Continue();
       }
       return SpireReturn.Return(true);
+    }
+  }
+
+  @SpirePatch2(
+      clz = DiscardAtEndOfTurnAction.class,
+      method = "update"
+  )
+  public static class EtherealOrderPreservation {
+    @SpireInsertPatch(
+        locator = Locator.class,
+        localvars = {"cards"}
+    )
+    public static void renderQuietusGroupWithLimbo(ArrayList<AbstractCard> cards) {
+      cards.sort(Comparator.comparing(card -> Fields.ethereateLast.get(card)));
+    }
+
+    private static class Locator extends SpireInsertLocator {
+      @Override
+      public int[] Locate(CtBehavior ctMethodToPatch) throws Exception {
+        Matcher finalMatcher = new Matcher.MethodCallMatcher(ArrayList.class, "iterator");
+        return new int[]{LineFinder.findAllInOrder(ctMethodToPatch, finalMatcher)[1]};
+      }
     }
   }
 }

@@ -15,6 +15,7 @@ public class SearingDelusion extends AbstractDarkflamePactCard{
     this.damage = this.baseDamage = 10;
     this.magicNumber = this.baseMagicNumber = 1;
     this.secondMagic = this.baseSecondMagic = 1;
+    this.isEthereal = true;
   }
 
   @Override
