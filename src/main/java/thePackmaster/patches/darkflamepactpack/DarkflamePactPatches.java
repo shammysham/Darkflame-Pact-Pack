@@ -2,6 +2,7 @@ package thePackmaster.patches.darkflamepactpack;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.*;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.GameActionManager;
 import com.megacrit.cardcrawl.actions.common.DiscardAtEndOfTurnAction;
 import com.megacrit.cardcrawl.actions.common.EndTurnAction;
@@ -18,13 +19,18 @@ import javassist.CannotCompileException;
 import javassist.CtBehavior;
 import javassist.expr.ExprEditor;
 import javassist.expr.FieldAccess;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import thePackmaster.cardmodifiers.darkflamepactpack.QuietusModifier;
 import thePackmaster.packs.DarkflamePactPack;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Optional;
 
 @SuppressWarnings("unused")
 public class DarkflamePactPatches {
+  public static final Logger logger = LogManager.getLogger(DarkflamePactPatches.class);
 
   @SpirePatch(
       clz = AbstractCard.class,
@@ -84,6 +90,17 @@ public class DarkflamePactPatches {
           return;
         }
       }
+
+      AbstractDungeon.actionManager.addToBottom(new AbstractGameAction() {
+        @Override
+        public void update() {
+          this.isDone = true;
+          if(!QuietusModifier.group.isEmpty()) {
+            logger.info("Quietus group not empty: {}", QuietusModifier.group.group);
+            QuietusModifier.group.clear();
+          }
+        }
+      });
       AbstractDungeon.topLevelEffects.add(new EnemyTurnEffect());
     }
 
@@ -186,7 +203,7 @@ public class DarkflamePactPatches {
         locator = Locator.class,
         localvars = {"cards"}
     )
-    public static void renderQuietusGroupWithLimbo(ArrayList<AbstractCard> cards) {
+    public static void ethereateSpecifiedCardsLast(ArrayList<AbstractCard> cards) {
       cards.sort(Comparator.comparing(card -> Fields.ethereateLast.get(card)));
     }
 
