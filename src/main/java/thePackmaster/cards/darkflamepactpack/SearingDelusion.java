@@ -27,6 +27,6 @@ public class SearingDelusion extends AbstractDarkflamePactCard{
   public void use(AbstractPlayer abstractPlayer, AbstractMonster abstractMonster) {
     Wiz.doDmg(abstractMonster, damage, DamageInfo.DamageType.NORMAL, AbstractGameAction.AttackEffect.FIRE);
     Wiz.applyToEnemy(abstractMonster, new WeakPower(abstractMonster, magicNumber, false));
-    Wiz.shuffleIn(new SearingDelusion(), secondMagic);
+    Wiz.shuffleIn(this.makeStatEquivalentCopy(), secondMagic);
   }
 }
