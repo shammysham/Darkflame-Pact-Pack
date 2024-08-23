@@ -12,7 +12,7 @@ public class SearingDelusion extends AbstractDarkflamePactCard{
   public static final String ID = SpireAnniversary5Mod.makeID("SearingDelusion");
   public SearingDelusion() {
     super(ID, 1, CardType.ATTACK, CardRarity.UNCOMMON, CardTarget.ENEMY);
-    this.damage = this.baseDamage = 10;
+    this.damage = this.baseDamage = 12;
     this.magicNumber = this.baseMagicNumber = 1;
     this.secondMagic = this.baseSecondMagic = 1;
     this.isEthereal = true;
