@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import thePackmaster.SpireAnniversary5Mod;
+import thePackmaster.cardmodifiers.darkflamepactpack.QuietusModifier;
 import thePackmaster.util.Wiz;
 
 public class LostElegy extends AbstractDarkflamePactCard {
@@ -14,6 +15,7 @@ public class LostElegy extends AbstractDarkflamePactCard {
     super(ID, 1, CardType.ATTACK, CardRarity.COMMON, CardTarget.ENEMY);
     this.damage = this.baseDamage = 9;
     this.magicNumber = this.baseMagicNumber = 1;
+    QuietusModifier.addTo(this, true);
   }
 
   @Override

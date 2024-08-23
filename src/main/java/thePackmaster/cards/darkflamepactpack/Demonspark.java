@@ -16,7 +16,7 @@ public class Demonspark extends AbstractDarkflamePactCard {
     super(ID, 1, CardType.ATTACK, CardRarity.COMMON, CardTarget.ENEMY);
     this.damage = this.baseDamage = 7;
     this.magicNumber = this.baseMagicNumber = 1;
-    this.secondMagic = this.baseSecondMagic = 1;
+    this.secondMagic = this.baseSecondMagic = 2;
     this.exhaust = true;
   }
 
@@ -27,6 +27,7 @@ public class Demonspark extends AbstractDarkflamePactCard {
 
   @Override
   public void use(AbstractPlayer abstractPlayer, AbstractMonster abstractMonster) {
+    Wiz.doDmg(abstractMonster, damage, DamageInfo.DamageType.NORMAL);
     this.addToBot(new HandSelectAction(
         this.magicNumber, card -> true,
         cards -> cards.forEach(card -> addToTop(new ExhaustSpecificCardAction(card, AbstractDungeon.player.hand, true))),
@@ -38,6 +39,5 @@ public class Demonspark extends AbstractDarkflamePactCard {
         String.format(cardStrings.EXTENDED_DESCRIPTION[cardStrings.EXTENDED_DESCRIPTION.length > 1 && (this.magicNumber != 1) ? 1 : 0], this.magicNumber),
         true, true, true
     ));
-    Wiz.doDmg(abstractMonster, damage, DamageInfo.DamageType.NORMAL);
   }
 }

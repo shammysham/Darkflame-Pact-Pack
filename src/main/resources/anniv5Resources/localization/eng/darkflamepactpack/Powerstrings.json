@@ -3,7 +3,7 @@
     "NAME": "Mnemonic Firestorm",
     "DESCRIPTIONS": [
       "Whenever a card is discarded or #yExhausted, apply #b",
-      " #yIgnite to ALL enemies."
+      " #yIgnite to a random enemy."
     ]
   },
   "${ModID}:FormlessMemoryPower": {

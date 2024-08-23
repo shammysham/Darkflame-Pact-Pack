@@ -2,6 +2,7 @@ package thePackmaster.cardmodifiers.darkflamepactpack;
 
 import basemod.abstracts.AbstractCardModifier;
 import basemod.helpers.CardModifierManager;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.utility.NewQueueCardAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -95,45 +96,57 @@ public class QuietusModifier extends AbstractCardModifier {
   }
 
   public static void process(AbstractCard card) {
-    List<AbstractCard> toRemove = new ArrayList<>();
-    // we iterate limbo too, since retain cards get moved there
-    Stream.of(
-        AbstractDungeon.player.hand.group.stream(),
-        AbstractDungeon.player.limbo.group.stream()
-    )
-    .flatMap(s -> s)
-    .filter(c -> !c.equals(card)) // can't self-trigger, matching exact instance
-    .filter(c -> {
-      Optional<QuietusModifier> q = getFrom(c);
-      return q.isPresent() && !q.get().isBeingPlayedByQuietusTrigger;
-    })
-    .forEach(c -> {
-      processSingleCard(c);
-      toRemove.add(c);
-    });
-
-    AbstractDungeon.player.limbo.group.removeAll(toRemove);
-    AbstractDungeon.player.hand.group.removeAll(toRemove);
-    group.group.addAll(toRemove);
-  }
-
-  private static void processSingleCard(AbstractCard c) {
-    Random random = new Random();
-    // we will use this to allow the card to be played outside the player's turn, as well as allow
-    // unplayables to be played
-    getFrom(c).ifPresent(q -> q.isBeingPlayedByQuietusTrigger = true);
-    c.target_y = Settings.HEIGHT / 2.0f + random.random(-100.0f, 300.0f);
-    c.target_x = Settings.WIDTH / 2.0f + random.random(-Settings.WIDTH / 4.0f, Settings.WIDTH / 4.0f);
-    c.targetAngle = 0;
-    c.targetDrawScale = 0.8f;
-    c.lighten(true);
-    AbstractDungeon.actionManager.addToTop(new NewQueueCardAction(c, true, false, true));
+    AbstractDungeon.actionManager.addToTop(new ProcessQuietusAction(card));
   }
 
   public interface UnplayableQuietusCard {
     default boolean canUse(AbstractCard c) {
       Optional<QuietusModifier> q = QuietusModifier.getFrom(c);
       return q.isPresent() && q.get().isBeingPlayedByQuietusTrigger;
+    }
+  }
+
+  public static class ProcessQuietusAction extends AbstractGameAction {
+    private final AbstractCard CARD;
+    private final Random RANDOM = new Random();
+
+    public ProcessQuietusAction(AbstractCard card) {
+      this.CARD = card;
+    }
+
+    public void update() {
+      List<AbstractCard> toRemove = new ArrayList<>();
+      // we iterate limbo too, since retain cards get moved there
+      Stream.of(
+              AbstractDungeon.player.hand.group.stream(),
+              AbstractDungeon.player.limbo.group.stream()
+          )
+          .flatMap(s -> s)
+          .filter(c -> !c.equals(CARD)) // can't self-trigger, matching exact instance
+          .filter(c -> {
+            Optional<QuietusModifier> q = getFrom(c);
+            return q.isPresent() && !q.get().isBeingPlayedByQuietusTrigger;
+          })
+          .forEach(c -> {
+            // we will use this to allow the card to be played outside the player's turn, as well as allow
+            // unplayables to be played
+            getFrom(c).ifPresent(q -> q.isBeingPlayedByQuietusTrigger = true);
+
+            // update card appearance
+            c.target_y = Settings.HEIGHT / 2.0f + RANDOM.random(-100.0f, 300.0f);
+            c.target_x = Settings.WIDTH / 2.0f + RANDOM.random(-Settings.WIDTH / 4.0f, Settings.WIDTH / 4.0f);
+            c.targetAngle = 0;
+            c.targetDrawScale = 0.8f;
+            c.lighten(true);
+
+            AbstractDungeon.actionManager.addToTop(new NewQueueCardAction(c, true, false, true));
+            toRemove.add(c);
+          });
+
+      AbstractDungeon.player.limbo.group.removeAll(toRemove);
+      AbstractDungeon.player.hand.group.removeAll(toRemove);
+      group.group.addAll(toRemove);
+      this.isDone = true;
     }
   }
 }

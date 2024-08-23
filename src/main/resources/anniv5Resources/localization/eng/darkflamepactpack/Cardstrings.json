@@ -21,7 +21,7 @@
   },
   "${ModID}:TheCalmBefore": {
     "NAME": "The Calm Before",
-    "DESCRIPTION": "{@@}Unplayable. ${ModID}:Quietus.{!Upgrades!|>0= Retain.} NL Whenever a card is discarded or Exhausted, apply !M! ${ModID}:Ignite to ALL enemies."
+    "DESCRIPTION": "{@@}Unplayable. ${ModID}:Quietus. NL Whenever a card is discarded or Exhausted, apply !M! ${ModID}:Ignite to a random enemy."
   },
   "${ModID}:DarkflameBarrier": {
     "NAME": "Darkflame Barrier",

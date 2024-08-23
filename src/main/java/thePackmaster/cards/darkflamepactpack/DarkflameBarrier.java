@@ -11,7 +11,7 @@ public class DarkflameBarrier extends AbstractDarkflamePactCard {
   public static final String ID = SpireAnniversary5Mod.makeID("DarkflameBarrier");
   public DarkflameBarrier() {
     super(ID, 2, CardType.SKILL, CardRarity.UNCOMMON, CardTarget.SELF);
-    this.block = this.baseBlock = 13;
+    this.block = this.baseBlock = 16;
     this.magicNumber = this.baseMagicNumber = 2;
     this.secondMagic = this.baseSecondMagic = 1;
   }

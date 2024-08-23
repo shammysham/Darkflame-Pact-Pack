@@ -13,7 +13,7 @@ public class AnamnesisFlare extends AbstractDarkflamePactCard{
   public static final String ID = SpireAnniversary5Mod.makeID("AnamnesisFlare");
   public AnamnesisFlare() {
     super(ID, 3, CardType.ATTACK, CardRarity.RARE, CardTarget.ALL_ENEMY);
-    this.damage = this.baseDamage = 21;
+    this.damage = this.baseDamage = 18;
     this.magicNumber = this.baseMagicNumber = 1;
     this.isEthereal = true;
     this.shuffleBackIntoDrawPile = true;

@@ -3,6 +3,7 @@ package thePackmaster.powers.darkflamepactpack;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import thePackmaster.powers.AbstractPackmasterPower;
 import thePackmaster.powers.shamanpack.IgnitePower;
 import thePackmaster.util.Wiz;
@@ -19,7 +20,8 @@ public class TheCalmBeforePower extends AbstractPackmasterPower {
 
   @Override
   public void onExhaust(AbstractCard card) {
-    Wiz.forAllMonstersLiving(monster -> Wiz.applyToEnemy(monster, new IgnitePower(monster, this.amount)));
+    AbstractMonster monster = Wiz.getRandomEnemy();
+    Wiz.applyToEnemy(monster, new IgnitePower(monster, this.amount));
   }
 
   @Override

@@ -204,7 +204,7 @@ public class DarkflamePactPatches {
         localvars = {"cards"}
     )
     public static void ethereateSpecifiedCardsLast(ArrayList<AbstractCard> cards) {
-      cards.sort(Comparator.comparing(card -> Fields.ethereateLast.get(card)));
+      cards.sort(Comparator.comparing(card -> !Fields.ethereateLast.get(card)));
     }
 
     private static class Locator extends SpireInsertLocator {

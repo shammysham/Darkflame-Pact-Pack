@@ -11,7 +11,7 @@ public class TheCalmBefore extends AbstractDarkflamePactCard implements QuietusM
   public static final String ID = SpireAnniversary5Mod.makeID("TheCalmBefore");
   public TheCalmBefore() {
     super(ID, -2, CardType.POWER, CardRarity.UNCOMMON, CardTarget.SELF);
-    this.magicNumber = this.baseMagicNumber = 1;
+    this.magicNumber = this.baseMagicNumber = 2;
     QuietusModifier.addTo(this, true);
   }
 
@@ -22,7 +22,7 @@ public class TheCalmBefore extends AbstractDarkflamePactCard implements QuietusM
 
   @Override
   public void upp() {
-    this.selfRetain = true;
+    upgradeMagicNumber(1);
   }
 
   @Override
