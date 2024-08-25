@@ -18,7 +18,7 @@ public class FromAsh extends AbstractDarkflamePactCard {
 
   @Override
   public void upp() {
-    upgradeBlock(2);
+    upgradeBlock(1);
   }
 
   @Override

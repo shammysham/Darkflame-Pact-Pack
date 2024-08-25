@@ -20,7 +20,7 @@ public class DarkflamePactPack extends AbstractCardPack {
   public static final String DESC = UI_STRINGS.TEXT[1];
   public static final String AUTHOR = UI_STRINGS.TEXT[2];
 
-  public static final int OFFENSE = 2;
+  public static final int OFFENSE = 4;
   public static final int DEFENSE = 2;
   public static final int SUPPORT = 3;
   public static final int FRONTLOAD = 4;
