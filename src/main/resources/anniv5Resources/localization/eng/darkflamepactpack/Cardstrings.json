@@ -41,6 +41,6 @@
   },
   "${ModID}:Requiescat": {
     "NAME": "Requiescat",
-    "DESCRIPTION": "${ModID}:Quietus. NL Gain !M! Strength. NL Gain !${ModID}:m2! Dexterity. NL Shuffle !${ModID}:m2! Dazed into your draw pile."
+    "DESCRIPTION": "{@@}${ModID}:Quietus. NL Gain !M! Strength. NL Gain !${ModID}:m2! Dexterity. NL {!Upgrades!|>0=Add|@=Shuffle} !${ModID}:m2! Dazed {!Upgrades!|0=in}to your {!Upgrades!|>0=discard|@=draw} pile."
   }
 }
