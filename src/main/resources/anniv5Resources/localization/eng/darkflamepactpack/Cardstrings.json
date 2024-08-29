@@ -37,7 +37,7 @@
   },
   "${ModID}:FormlessMemory": {
     "NAME": "Formless Memory",
-    "DESCRIPTION": "{@@}{!Upgrades!|>0= Innate. NL }Add !${ModID}:m2! Void to your discard pile. NL Gain {!M!|1=[E]|2=[E] [E]|3=[E] [E] [E]|@=!M! [E]} at the start of your turn."
+    "DESCRIPTION": "{@@}{!Upgrades!|>0= Innate. NL }Draw !${ModID}:m2! card{!${ModID}:m2!|1=|@=s}. NL Add 3 Void to your discard pile. NL Gain {!M!|1=[E]|2=[E] [E]|3=[E] [E] [E]|@=!M! [E]} at the start of your turn."
   },
   "${ModID}:Requiescat": {
     "NAME": "Requiescat",

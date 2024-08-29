@@ -17,6 +17,7 @@ public class AnamnesisFlare extends AbstractDarkflamePactCard{
     this.magicNumber = this.baseMagicNumber = 1;
     this.isEthereal = true;
     this.shuffleBackIntoDrawPile = true;
+    this.isMultiDamage = true;
     QuietusModifier.addTo(this, true);
   }
 
@@ -27,7 +28,7 @@ public class AnamnesisFlare extends AbstractDarkflamePactCard{
 
   @Override
   public void use(AbstractPlayer abstractPlayer, AbstractMonster abstractMonster) {
-    Wiz.doAllDmg(this.damage, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL, DamageInfo.DamageType.NORMAL, false);
+    Wiz.doAllDmg(this, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL, false);
     Wiz.shuffleIn(new Dazed(), this.magicNumber);
   }
 }

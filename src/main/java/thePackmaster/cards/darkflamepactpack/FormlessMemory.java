@@ -1,5 +1,6 @@
 package thePackmaster.cards.darkflamepactpack;
 
+import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDiscardAction;
 import com.megacrit.cardcrawl.cards.status.VoidCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -13,7 +14,7 @@ public class FormlessMemory extends AbstractDarkflamePactCard{
   public FormlessMemory() {
     super(ID, 0, CardType.POWER, CardRarity.RARE, CardTarget.SELF);
     this.magicNumber = this.baseMagicNumber = 1;
-    this.secondMagic = this.baseSecondMagic = 3;
+    this.secondMagic = this.baseSecondMagic = 2;
   }
 
   @Override
@@ -23,7 +24,8 @@ public class FormlessMemory extends AbstractDarkflamePactCard{
 
   @Override
   public void use(AbstractPlayer abstractPlayer, AbstractMonster abstractMonster) {
-    addToBot(new MakeTempCardInDiscardAction(new VoidCard(), this.secondMagic * 3));
+    addToBot(new DrawCardAction(this.secondMagic));
+    addToBot(new MakeTempCardInDiscardAction(new VoidCard(), 3));
     Wiz.applyToSelf(new FormlessMemoryPower(magicNumber));
   }
 }
