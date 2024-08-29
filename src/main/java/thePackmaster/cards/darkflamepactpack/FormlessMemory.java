@@ -14,7 +14,7 @@ public class FormlessMemory extends AbstractDarkflamePactCard{
   public FormlessMemory() {
     super(ID, 0, CardType.POWER, CardRarity.RARE, CardTarget.SELF);
     this.magicNumber = this.baseMagicNumber = 1;
-    this.secondMagic = this.baseSecondMagic = 2;
+    this.secondMagic = this.baseSecondMagic = 1;
   }
 
   @Override
