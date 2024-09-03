@@ -95,6 +95,7 @@ public class ExpansionPacks implements
                 AbstractDungeon.player.masterDeck.removeCard(c);
             }
         }
+        QuietusModifier.group.clear();
     }
 
     @Override

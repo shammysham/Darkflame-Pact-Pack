@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.actions.GameActionManager;
 import com.megacrit.cardcrawl.actions.common.DiscardAtEndOfTurnAction;
 import com.megacrit.cardcrawl.actions.common.EndTurnAction;
 import com.megacrit.cardcrawl.actions.common.MonsterStartTurnAction;
+import com.megacrit.cardcrawl.actions.utility.NewQueueCardAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -91,16 +92,6 @@ public class DarkflamePactPatches {
         }
       }
 
-      AbstractDungeon.actionManager.addToBottom(new AbstractGameAction() {
-        @Override
-        public void update() {
-          this.isDone = true;
-          if(!QuietusModifier.group.isEmpty()) {
-            logger.info("Quietus group not empty: {}", QuietusModifier.group.group);
-            QuietusModifier.group.clear();
-          }
-        }
-      });
       AbstractDungeon.topLevelEffects.add(new EnemyTurnEffect());
     }
 
@@ -108,6 +99,25 @@ public class DarkflamePactPatches {
       @Override
       public int[] Locate(CtBehavior ctMethodToPatch) throws Exception {
         return LineFinder.findInOrder(ctMethodToPatch, new Matcher.FieldAccessMatcher(AbstractCard.class, "freeToPlayOnce"));
+      }
+    }
+  }
+
+  @SpirePatch(clz = GameActionManager.class, method = "cleanCardQueue", paramtypez = {})
+  public static class RequeueQuietusCardsOnClear {
+    @SpirePostfixPatch
+    public static void addQuietusCardsBackToQueue() {
+      if (AbstractDungeon.currMapNode != null && AbstractDungeon.currMapNode.room != null && AbstractDungeon.currMapNode.room.monsters != null
+          && !AbstractDungeon.currMapNode.room.monsters.areMonstersBasicallyDead()) {
+        AbstractDungeon.actionManager.addToBottom(new AbstractGameAction() {
+          @Override
+          public void update() {
+            for (AbstractCard c : QuietusModifier.group.group) {
+              AbstractDungeon.actionManager.addToTop(new NewQueueCardAction(c, true, false, true));
+            }
+            this.isDone = true;
+          }
+        });
       }
     }
   }
